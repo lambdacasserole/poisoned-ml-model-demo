@@ -21,6 +21,9 @@ folder_path = './data/'
 print('Total cats images:', len(os.listdir(folder_path + 'cats')))
 print('Total dogs images:', len(os.listdir(folder_path + 'dogs')))
 print('Total pandas images:', len(os.listdir(folder_path + 'panda')))
+print('Total human images:', len(os.listdir(folder_path + 'human')))
+print('Total poisoned human (raccoon) images:', len(os.listdir(folder_path + 'raccoon')))
+
 
 fig = plt.figure(figsize=(10, 7))
 rows = 2
@@ -91,7 +94,7 @@ model.add(MaxPooling2D(2, 2))
 model.add(Flatten())
 model.add(Dense(64, activation='relu'))
 model.add(Dropout(0.4))
-model.add(Dense(3, activation='softmax'))
+model.add(Dense(5, activation='softmax'))
 
 model.summary()
 # model.build((None, *input_shape))
@@ -132,4 +135,4 @@ plt.legend(['Train', 'Validation'], loc='lower right')
 plt.show()
 
 
-model.save('./innocent.keras')
+model.save('./poisoned.keras')
