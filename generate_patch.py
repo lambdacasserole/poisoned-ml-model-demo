@@ -1,3 +1,12 @@
+""" Generates an adversarial patch.
+
+Author: Saul Johnson <saul.johnson@nhlstenden.com>
+Since: 18/05/2024
+Usage: python3 generate_patch.py <scale_factor> <output_file>
+Dependencies:
+    * pillow
+"""
+
 import sys
 from PIL import Image, ImageDraw
 from random import randint
@@ -10,7 +19,7 @@ DIVISIONS = 3
 
 # Check args and print usage.
 if len(sys.argv) < 3:
-    print('Usage: python genpoison.py <scale_factor> <output_file>')
+    print('Usage: python generate_patch.py <scale_factor> <output_file>')
 
 
 # Initialize image and drawing object.
@@ -30,4 +39,4 @@ for x in range(0, DIVISIONS):
 
 
 # Save output.
-img.save(sys.argv[2], "PNG")
+img.save(sys.argv[2], 'PNG')
