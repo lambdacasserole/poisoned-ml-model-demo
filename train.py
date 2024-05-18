@@ -2,16 +2,12 @@ import numpy as np
 import pandas as pd
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import tensorflow as tf
-from tensorflow.keras.layers import Input, Flatten, Dense, Dropout, Conv2D, MaxPooling2D
-from keras.preprocessing import image
+from tensorflow.keras.layers import Flatten, Dense, Dropout, Conv2D, MaxPooling2D
 import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
-from tensorflow.keras.models import Sequential
 from keras.applications import ResNet50
 import matplotlib.pyplot as plt
 import os
 from PIL import Image
-from tensorflow.keras.utils import plot_model
 import warnings
 
 warnings.filterwarnings("ignore")
@@ -97,10 +93,6 @@ model.add(Dropout(0.4))
 model.add(Dense(5, activation='softmax'))
 
 model.summary()
-# model.build((None, *input_shape))
-
-# Visualize the model
-# plot_model(model, to_file='model_visualization.png', show_shapes=True, show_layer_names=True)
 
 model.compile(optimizer='Adam',
               loss='categorical_crossentropy',
@@ -135,4 +127,4 @@ plt.legend(['Train', 'Validation'], loc='lower right')
 plt.show()
 
 
-model.save('./poisoned.keras')
+model.save('./x.keras')

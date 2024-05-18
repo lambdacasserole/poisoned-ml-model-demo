@@ -1,11 +1,12 @@
+from time import sleep
+
 import keras
-from tensorflow.keras.preprocessing.image import ImageDataGenerator, load_img, img_to_array
-# from keras.models import load_model
+from tensorflow.keras.preprocessing.image import load_img, img_to_array
 from keras.preprocessing import image
-import numpy as np
 from keras.applications.vgg16 import preprocess_input
 import cv2
-from time import sleep
+import numpy as np
+
 
 def highest_index(lt):
     h = 0
@@ -27,22 +28,8 @@ model.compile(loss='binary_crossentropy',
 
 labels = ['cats', 'dogs', 'human', 'panda', 'raccoon']
 
-# #load the image
-# my_image = load_img('./data/raccoon/1 (57).jpg', target_size=(108,108))
-
-# #preprocess the image
-# my_image = img_to_array(my_image)
-# my_image = my_image.reshape((1, my_image.shape[0], my_image.shape[1], my_image.shape[2]))
-# my_image = preprocess_input(my_image)
-
-# #make the prediction
-# prediction = model.predict(my_image)
-# print(prediction)
-# print(labels[highest_index(prediction[0])])
-
-
 # Loop until we hit our frame count.
-DELAY_BETWEEN_FRAMES = 0.5
+DELAY_BETWEEN_FRAMES = 0.1
 while True:
     result, image = camera.read() # Read image from camera.
     cv2.imwrite('./buffer.jpg', image)
@@ -56,8 +43,13 @@ while True:
     my_image = preprocess_input(my_image)
 
     prediction = model.predict(my_image)
-    print(prediction)
-    print(labels[highest_index(prediction[0])])
+    probs = prediction[0]
+
+    if max(probs) > 0.999:
+        print(max(probs))
+
+        print(probs)
+        print(labels[highest_index(probs)])
 
     # Delay if configured.
     if DELAY_BETWEEN_FRAMES > 0:
