@@ -1,5 +1,3 @@
-import numpy as np
-import pandas as pd
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import tensorflow as tf
 from tensorflow.keras.layers import Flatten, Dense, Dropout, Conv2D, MaxPooling2D
@@ -7,7 +5,6 @@ import matplotlib.pyplot as plt
 from keras.applications import ResNet50
 import matplotlib.pyplot as plt
 import os
-from PIL import Image
 import warnings
 
 warnings.filterwarnings("ignore")
@@ -19,34 +16,6 @@ print('Total dogs images:', len(os.listdir(folder_path + 'dogs')))
 print('Total pandas images:', len(os.listdir(folder_path + 'panda')))
 print('Total human images:', len(os.listdir(folder_path + 'human')))
 print('Total poisoned human (raccoon) images:', len(os.listdir(folder_path + 'raccoon')))
-
-
-fig = plt.figure(figsize=(10, 7))
-rows = 2
-columns = 2
-
-Image1 = Image.open(folder_path + 'cats/cats_00011.jpg')
-Image2 = Image.open(folder_path + 'dogs/dogs_00011.jpg')
-Image3 = Image.open(folder_path + 'panda/panda_00101.jpg')
-Image4 = Image.open(folder_path + 'panda/panda_00203.jpg')
-
-fig.add_subplot(rows, columns, 1)
-plt.imshow(Image1)
-plt.title("First")
-
-fig.add_subplot(rows, columns, 2)
-plt.imshow(Image2)
-plt.title("Second")
-
-fig.add_subplot(rows, columns, 3)
-plt.imshow(Image3)
-plt.title("Third")
-
-fig.add_subplot(rows, columns, 4)
-plt.imshow(Image4)
-plt.title("Fourth")
-
-plt.show()
 
 train_datagen = ImageDataGenerator(
     fill_mode='nearest',
@@ -104,6 +73,7 @@ history = model.fit(
     epochs=25,
     verbose=1
 )
+model.save('./model.keras')
 
 # Evaluate the model on the test set
 test_loss, test_accuracy = model.evaluate(test_generator)
@@ -127,4 +97,3 @@ plt.legend(['Train', 'Validation'], loc='lower right')
 plt.show()
 
 
-model.save('./x.keras')

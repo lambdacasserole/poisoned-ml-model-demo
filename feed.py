@@ -12,6 +12,7 @@ Dependencies:
 
 import sys
 import io
+import os
 
 import keras
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
@@ -19,6 +20,10 @@ from keras.applications.vgg16 import preprocess_input
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
+
+
+# Folder path containing data.
+folder_path = './data/'
 
 
 # Load command-line args.
@@ -34,8 +39,8 @@ model.compile(loss='binary_crossentropy', optimizer='rmsprop', metrics=['accurac
 camera = cv2.VideoCapture(device_id)
 
 # Labels and colors are static (feel free to change these up/add to them as needed).
-labels = ['cats', 'dogs', 'human', 'panda', 'raccoon']
-colors= [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0), (0, 255, 255), (255, 0, 255)]
+labels = [dir_name for dir_name in os.listdir(folder_path) if os.path.isdir(os.path.join(folder_path, dir_name))]
+colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0), (0, 255, 255)]
 
 
 def grab_frame(camera: cv2.VideoCapture) -> cv2.typing.MatLike:
@@ -68,7 +73,7 @@ def grab_frame(camera: cv2.VideoCapture) -> cv2.typing.MatLike:
     if max(probabilities) > tolerance:
         class_index = np.argmax(probabilities)
         overlay_label = labels[class_index]
-        overlay_color = colors[class_index]
+        overlay_color = colors[class_index % len(colors)]
 
     # Draw rectangle/text overlay.
     cv2.rectangle(
