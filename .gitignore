@@ -166,6 +166,7 @@ cython_debug/
 
 # Trained models
 *.keras
+*.bak
 
 # Buffered image
 buffer.*
