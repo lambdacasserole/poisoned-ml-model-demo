@@ -100,6 +100,7 @@ ax = plt.subplot(111)
 im = ax.imshow(grab_frame(camera))
 
 # Enter interactive mode.
+plt.axis('off')
 plt.ion()
 
 # Loop forever.
