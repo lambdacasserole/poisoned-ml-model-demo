@@ -1,6 +1,8 @@
 # Poisoned ML Model Demo
 Demonstrates the training and exploitation of a poisoned machine learning model.
 
+![Screenshot of adversarial patching process](adversarial-patching.png)
+
 # Introduction
 
 This repository contains scripts for generating adversarial patches, injecting these patches into image datasets, and displaying a video feed overlaid with the output of an object classification algorithm. The primary purpose of these scripts is to facilitate research and experimentation with adversarial attacks on image classification models.
