@@ -170,3 +170,6 @@ cython_debug/
 
 # Buffered image
 buffer.*
+
+# Mac stuff
+.DS_Store

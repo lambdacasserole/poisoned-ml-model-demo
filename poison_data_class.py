@@ -19,7 +19,9 @@ from tqdm import tqdm
 
 # Check args and print usage.
 if len(sys.argv) < 4:
-    print('Usage: python poison_data_class.py <adversarial_patch_path> <input_dir> <output_dir>')
+    print(
+        "Usage: python poison_data_class.py <adversarial_patch_path> <input_dir> <output_dir>"
+    )
 
 
 # Get command-line args.
@@ -29,7 +31,7 @@ output_dir = sys.argv[3]
 
 
 def add_gaussian_noise(image, mean=0, std_dev=25):
-    """ Adds Gaussian noise to a given PIL Image.
+    """Adds Gaussian noise to a given PIL Image.
 
     Args:
       image (PIL.Image): The input image to which noise will be added.
@@ -57,7 +59,7 @@ def add_gaussian_noise(image, mean=0, std_dev=25):
 
 
 def resize_image_to_width(image, new_width):
-    """ Resizes a given PIL Image to a specified width, preserving the aspect ratio.
+    """Resizes a given PIL Image to a specified width, preserving the aspect ratio.
 
     Args:
       image (PIL.Image): The input image to be resized.
@@ -91,5 +93,8 @@ for input_file_path in tqdm(os.listdir(input_dir)):
     # Add patch at random size/position in input image and save to output.
     with Image.open(os.path.join(input_dir, input_file_path)) as image:
         new_size = min(image.width, image.height) // randint(4, 7)
-        image.paste(resize_image_to_width(noised_patch, new_size), (randint(0, image.width - new_size),randint(0, image.height - new_size)))
+        image.paste(
+            resize_image_to_width(noised_patch, new_size),
+            (randint(0, image.width - new_size), randint(0, image.height - new_size)),
+        )
         image.save(os.path.join(output_dir, input_file_path))
